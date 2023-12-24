@@ -39,12 +39,24 @@
 								<span>Outlet</span>
 							</router-link>
 						</li>
+						<li class="nav-item">
+							<router-link to="/task-so" class="nav-link" exact>
+								<i class="icon-task mr-5 text-purple-500"></i>
+								<span>Tasks SO</span>
+							</router-link>
+						</li>
+						<li class="nav-item">
+							<router-link to="/consumptive" class="nav-link" exact>
+								<i class="icon-stats-decline mr-5 text-red-500"></i>
+								<span>Consumptive</span>
+							</router-link>
+						</li>
 					</ul>
 				</div>
 			</div>
 			<!-- CONTENT WRAPPER -->
 			<div class=" flex flex-col flex-1 relative min-w-0">
-				<div class="flex flex-col h-full relative overflow-y-auto">
+				<div class="flex flex-col h-full relative overflow-y-auto mb-20">
 					<transition name="fade" mode="out-in">
 						<router-view />
 					</transition>

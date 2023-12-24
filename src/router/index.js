@@ -24,6 +24,16 @@ const routes = [
     path: '/analytic',
     name: 'Analytic',
     component: () => import('../views/analytic.vue')
+  }, 
+  {
+    path: '/task-so',
+    name: 'Task SO',
+    component: () => import('../views/TaskSO.vue')
+  },
+  {
+    path: '/consumptive',
+    name: 'Consumptive',
+    component: () => import('../views/consumptive.vue')
   }
 ]
 
