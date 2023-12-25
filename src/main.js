@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'https://vps.zhrleather.com'
+axios.defaults.baseURL = 'http://localhost:3000'
 
 
 import './style.css'

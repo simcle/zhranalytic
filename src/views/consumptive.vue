@@ -18,7 +18,7 @@
                         <td class="pl-5 py-3 pr-3">{{item.sku}}</td>
                         <td class="pl-5 py-3 pr-3">{{item.name}}</td>
                         <td class="pl-5 py-3 pr-3 text-right">{{item.stock}}</td>
-                        <td class="pl-5 py-3 pr-3 text-right">{{Intl.NumberFormat().format(item.purchase)}}</td>
+                        <td class="pl-5 py-3 pr-3 text-right">{{Intl.NumberFormat().format(item.price)}}</td>
                         <td class="pl-5 py-3 pr-3 text-right">{{Intl.NumberFormat().format(item.total)}}</td>
                     </tr>
                 </tbody>

@@ -4,22 +4,27 @@
             <div>
                 <input v-model="search" type="text" class="form-control w-64" placeholder="Serach SKU">
             </div>
-            <div class="inline-flex rounded-sm" role="group">
-                <button @click="time='1D'" type="button" :class="[time == '1D' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border rounded-s">
-                    1D
-                </button>
-                <button @click="time='7D'" type="button" :class="[time == '7D' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border-t border-b border-r">
-                    7D
-                </button>
-                <button @click="time='30D'" type="button" :class="[time == '30D' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border-t border-b border-r">
-                    30D
-                </button>
-                <button @click="time='90D'" type="button" :class="[time == '90D' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border-t border-b">
-                    90D
-                </button>
-                <button @click="time='1Y'" type="button" :class="[time == '1Y' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border border-gray-200 rounded-e">
-                    1Y
-                </button>
+            <div class="flex items-center space-x-3">
+                <div class="inline-flex rounded-sm" role="group">
+                    <button @click="time='1D'" type="button" :class="[time == '1D' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border rounded-s">
+                        1D
+                    </button>
+                    <button @click="time='7D'" type="button" :class="[time == '7D' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border-t border-b border-r">
+                        7D
+                    </button>
+                    <button @click="time='30D'" type="button" :class="[time == '30D' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border-t border-b border-r">
+                        30D
+                    </button>
+                    <button @click="time='90D'" type="button" :class="[time == '90D' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border-t border-b">
+                        90D
+                    </button>
+                    <button @click="time='1Y'" type="button" :class="[time == '1Y' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border border-gray-200 rounded-e">
+                        1Y
+                    </button>
+                </div>
+                <div>
+                    <button @click="downloadData" class="h-9 rounded px-5 bg-green-500 text-green-50">DWONLOAD xlsx</button>
+                </div>
             </div>
         </div>
         <div class="bg-white flex-grow overflow-auto top-0 rounded">
@@ -129,6 +134,23 @@ export default {
             })
             .then(res => {
                 this.items = res.data
+            })
+        },
+        downloadData () {
+            axios.get('/analytics/products/download/sku', {
+                params: {
+                    search: this.search,
+                    time: this.time
+                },
+                responseType: 'blob'
+            })
+            .then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute('download', 'statistics.xlsx'); //or any other extension
+				document.body.appendChild(link);
+				link.click();
             })
         },
         onDetail (e) {
