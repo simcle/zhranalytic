@@ -22,19 +22,25 @@
 							</router-link>
 						</li>
 						<li class="nav-item">
-							<router-link to="/products" class="nav-link" exact>
+							<router-link to="/products" class="nav-link">
 								<i class="icon-stack2 mr-5 text-green-500"></i>
 								<span>Products</span>
 							</router-link>
 						</li>
 						<li class="nav-item">
-							<router-link to="/analytic" class="nav-link" exact>
+							<router-link to="/purchasing" class="nav-link">
+								<i class="icon-cart-add2 mr-5 text-teal-500"></i>
+								<span>Purchasing</span>
+							</router-link>
+						</li>
+						<li class="nav-item">
+							<router-link to="/analytic" class="nav-link">
 								<i class="icon-folder-search mr-5 text-yellow-500"></i>
 								<span>Analytic</span>
 							</router-link>
 						</li>
 						<li class="nav-item">
-							<router-link to="/outlet" class="nav-link" exact>
+							<router-link to="/outlet" class="nav-link">
 								<i class="icon-store mr-5 text-blue-500"></i>
 								<span>Outlet</span>
 							</router-link>

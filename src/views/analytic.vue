@@ -30,14 +30,15 @@
         <div class="bg-white flex-grow overflow-auto top-0 rounded">
             <table class="w-full relative">
                 <thead>
-                    <th class="pl-5 py-3 pr-3 bg-gray-700 text-gray-50 sticky top-0" style="width:10%">SKU</th>
-                    <th class="p-3 bg-gray-700 text-gray-50 sticky top-0" style="width: 50%">ITEM NAME</th>
-                    <th class="p-3 hover:text-green-500 cursor-pointer bg-gray-700 text-gray-50 sticky top-0">
+                    <th class="pl-5 py-3 pr-3 bg-gray-900 text-gray-50 sticky top-0" style="width:10%">SKU</th>
+                    <th class="p-3 bg-gray-900 text-gray-50 sticky top-0" style="width: 50%">ITEM NAME</th>
+                    <th class="p-3 bg-gray-900 text-gray-50 sticky top-0">FLOW</th>
+                    <th class="p-3 hover:text-green-500 cursor-pointer bg-gray-900 text-gray-50 sticky top-0">
                         <div class="flex items-center justify-end">
                             SOLD
                         </div>
                     </th>
-                    <th class="pl-3 py-3 pr-5 hover:text-green-500 cursor-pointer bg-gray-700 text-gray-50 sticky top-0">
+                    <th class="pl-3 py-3 pr-5 hover:text-green-500 cursor-pointer bg-gray-900 text-gray-50 sticky top-0">
                         <div class="flex items-center justify-end">
                             STOCK
                         </div>
@@ -47,6 +48,11 @@
                     <tr v-for="(item, i) in items" :key="i" class="hover:bg-gray-100 cursor-pointer" @click="onDetail(item)">
                         <td class="pl-5 pr-3 py-3">{{item.sku}}</td>
                         <td class="p-3">{{item.name}}</td>
+                        <td class="p-3">
+                            <div v-if="item.flow == 'Purchase'" class="text-red-500 italic">{{item.flow}}</div>
+                            <div v-if="item.flow == 'Receipts'" class="text-green-500 italic">{{item.flow}}</div>
+                            <div v-if="!item.flow">--</div>
+                        </td>
                         <td class="p-3 text-right">{{item.sold}}</td>
                         <td class="pl-3 pr-5 py-3 text-right">{{item.stock}}</td>
                     </tr>

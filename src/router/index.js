@@ -21,6 +21,27 @@ const routes = [
     ] 
   },
   {
+    path: '/purchasing',
+    component: () => import('../views/purchasing/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Purchasing',
+        component: () => import('../views/purchasing/purchasing.vue')
+      },
+      {
+        path: 'new',
+        name: 'New Pruchasing',
+        component: () => import('../views/purchasing/newPurchasing.vue'),
+      },
+      {
+        path: 'detail/:id',
+        name: 'Detail',
+        component: () => import('../views/purchasing/detailPurchase.vue')
+      }
+    ]
+  },
+  {
     path: '/analytic',
     name: 'Analytic',
     component: () => import('../views/analytic.vue')

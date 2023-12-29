@@ -31,16 +31,16 @@
         <div class="bg-white flex-grow overflow-auto top-0 rounded">
             <table class="w-full relative">
                 <thead>
-                    <th class="pl-5 py-3 pr-3 bg-gray-700 text-gray-50 sticky top-0" style="width:10%">SKU</th>
-                    <th class="p-3 bg-gray-700 text-gray-50 sticky top-0" style="width: 50%">ITEM NAME</th>
-                    <th @click="sortBy('sold')" :class="{'text-green-500':sortKey == 'sold'}" class="p-3 hover:text-green-500 cursor-pointer bg-gray-700 text-gray-50 sticky top-0">
+                    <th class="pl-5 py-3 pr-3 bg-gray-900 text-gray-50 sticky top-0" style="width:10%">SKU</th>
+                    <th class="p-3 bg-gray-900 text-gray-50 sticky top-0" style="width: 50%">ITEM NAME</th>
+                    <th @click="sortBy('sold')" :class="{'text-green-500':sortKey == 'sold'}" class="p-3 hover:text-green-500 cursor-pointer bg-gray-900 text-gray-50 sticky top-0">
                         <div class="flex items-center justify-end">
                             SOLD
                             <i v-if="sortKey == 'sold'" :class="[sortOrder === 1 ? 'icon-arrow-up12':'icon-arrow-down12']"></i>
                             <i v-else class="icon-menu-open"></i>
                         </div>
                     </th>
-                    <th @click="sortBy('stock')" :class="{'text-green-500':sortKey == 'stock'}" class="pl-3 pr-5 py-3 hover:text-green-500 cursor-pointer bg-gray-700 text-gray-50 sticky top-0">
+                    <th @click="sortBy('stock')" :class="{'text-green-500':sortKey == 'stock'}" class="pl-3 pr-5 py-3 hover:text-green-500 cursor-pointer bg-gray-900 text-gray-50 sticky top-0">
                         <div class="flex items-center justify-end">
                             STOCK
                             <i v-if="sortKey == 'stock'" :class="[sortOrder === 1 ? 'icon-arrow-up12':'icon-arrow-down12']"></i>
