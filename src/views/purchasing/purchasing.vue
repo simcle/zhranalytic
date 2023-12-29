@@ -2,10 +2,10 @@
     <div class="m-5">
         <div class="flex items-center justify-between mb-5">
             <div>
-                <input type="text" class="form-control w-64">
+                <input v-model="search" type="text" class="form-control w-64" placeholder="sercah no or supplier name">
             </div>
             <div>
-                <router-link to="/purchasing/new" class="bg-green-500 h-9 block flex items-center rounded px-5 text-green-50 hover:bg-green-600">New RFQ</router-link>
+                <router-link to="/purchasing/new" class="bg-green-500 h-9 flex items-center rounded px-5 text-green-50 hover:bg-green-600">New RFQ</router-link>
             </div>
         </div>
         <div class="w-full rounded overflow-hidden bg-white">
@@ -33,14 +33,19 @@
 
 <script>
 import axios from 'axios'
+import debounce from 'lodash.debounce'
 export default {
     data () {
         return {
             search: '',
+            searchData: '',
             purchases: []
         }
     },
     mounted () {
+        this.searchData = debounce(() => {
+            this.getData()
+        }, 300)
         this.getData()
     },
     methods: {
@@ -63,6 +68,11 @@ export default {
         },
         onDetail (e) {
             this.$router.push('/purchasing/detail/'+e)
+        }
+    },
+    watch: {
+        search () {
+            this.searchData()
         }
     }
 }
