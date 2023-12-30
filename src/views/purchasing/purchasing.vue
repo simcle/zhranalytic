@@ -11,7 +11,8 @@
         <div class="w-full rounded overflow-hidden bg-white">
             <table class="w-full">
                 <thead>
-                    <th class="pl-5 py-3 pr-3 bg-gray-900"></th>
+                    <th class="pl-5 py-3 pr-3 bg-gray-900" style="width: 10%"></th>
+                    <th class="p-3 bg-gray-900 text-gray-50">Item</th>
                     <th class="p-3 bg-gray-900 text-gray-50">Vendor</th>
                     <th class="p-3 bg-gray-900 text-gray-50">Order Date</th>
                     <th class="p-3 bg-gray-900 text-gray-50 text-right">Total</th>
@@ -20,6 +21,7 @@
                 <tbody class="divide-y">
                     <tr v-for="(prc, i) in purchases" :key="i" @click="onDetail(prc._id)" class=" cursor-pointer hover:bg-gray-50">
                         <td class="pl-5 py-3 pr-3">{{prc.purchaseNo}}</td>
+                        <td class="p-3">{{prc.remarks}}</td>
                         <td class="p-3">{{prc.supplier}}</td>
                         <td class="p-3">{{getDate(prc.invoiceDate)}}</td>
                         <td class="p-3 text-right">{{Intl.NumberFormat().format(prc.total)}}</td>

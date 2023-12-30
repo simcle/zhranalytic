@@ -18,6 +18,7 @@
             <div class="text-gray-300 font-semibold">
                 <button v-show="form.status == 'RFQ'" @click="onSave('RFQ SENT')" class="text-gray-300 hover:text-gray-400">SENT</button>
                 <button v-show="form.status == 'RFQ SENT'" @click="onSave('DONE')" class="text-gray-300 hover:text-gray-400">DONE</button>
+                <button @click="onUpdate" class="text-green-50 hover:bg-green-600 ml-3 bg-green-500 rounded px-3">Update</button>
             </div>
         </div>
         <div class="m-5">
@@ -129,6 +130,7 @@ export default {
                 remarks: '',
                 invoiceDate: '',
                 items: [],
+                status: ''
             },
             err: {
                 supplier: ''
@@ -155,6 +157,18 @@ export default {
                 this.form = res.data
                 this.supplierName = res.data.supplier
             })
+        },
+        onUpdate () {
+            if(!this.form.supplierId) {
+                this.err.supplierId = true
+            }  
+            if(this.form.supplierId) {
+                this.isDisabled = true
+                axios.put('/purchases/update/'+this.$route.params.id, this.form)
+                .then(() => {
+                    this.$router.push('/purchasing')
+                })
+            }
         },
         onSave (e) {
             if(!this.form.supplierId) {
