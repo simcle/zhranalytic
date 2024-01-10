@@ -171,12 +171,13 @@ export default {
             }
         },
         onSave (e) {
+            this.form.status = e
             if(!this.form.supplierId) {
                 this.err.supplier = true
             }
             if(this.form.supplierId) {
                 this.isDisabled = true
-                axios.put('/purchases/update/'+this.$route.params.id, {status: e})
+                axios.put('/purchases/update/'+this.$route.params.id, this.form)
                 .then(() => {
                     this.$router.push('/purchasing')
                 })
