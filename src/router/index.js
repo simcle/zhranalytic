@@ -52,6 +52,11 @@ const routes = [
     component: () => import('../views/TaskSO.vue')
   },
   {
+    path: '/report',
+    name: 'Report',
+    component: () => import('../views/report.vue')
+  },
+  {
     path: '/consumptive',
     name: 'Consumptive',
     component: () => import('../views/consumptive.vue')

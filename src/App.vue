@@ -52,6 +52,12 @@
 							</router-link>
 						</li>
 						<li class="nav-item">
+							<router-link to="/report" class="nav-link" exact>
+								<i class="icon-file-text2 mr-5 text-cyan-500"></i>
+								<span>Report</span>
+							</router-link>
+						</li>
+						<li class="nav-item">
 							<router-link to="/consumptive" class="nav-link" exact>
 								<i class="icon-stats-decline mr-5 text-red-500"></i>
 								<span>Consumptive</span>
