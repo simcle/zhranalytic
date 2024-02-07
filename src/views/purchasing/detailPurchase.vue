@@ -243,7 +243,6 @@ export default {
                 const name = obj.name.split(" ")
                 const warna = name.findIndex(obj => obj == 'Warna')
                 const size = name.findIndex(obj => obj == 'Size')
-                console.log(warna)
                 if(size > -1) {
                     obj.size = name[size + 1]
                 }
@@ -253,7 +252,6 @@ export default {
                 return obj
             }).sort((a, b) => {
                 let fa = a.name.toLowerCase(), fb = b.name.toLowerCase()
-                console.log(fa, fb)
                 if(fa > fb) {
                     return -1
                 }
@@ -294,6 +292,9 @@ export default {
             axios.get('/purchases/detail/'+this.$route.params.id)
             .then(res => {
                 this.form = res.data
+                if(!this.form.images) {
+                    this.form.images = []
+                }
                 this.supplierName = res.data.supplier
             })
         },
