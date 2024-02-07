@@ -80,6 +80,39 @@
             </tbody>
         </table>
 
+        <!-- IMAGES -->
+        <div class="flex items-center mb-5 mt-2">
+            <div class="w-full flex items-center space-x-5">
+                <draggable
+                    :list="images"
+                    :animation="200"
+                    class="flex space-x-5"
+                    ghost-class="border-red-600"
+                    draggable=".item"
+                >
+                    <div v-for="(element, i) in images" :key="i" class="relative w-40 h-40 rounded-sm border item">
+                        <img :src="element" class="w-full" alt="">
+                        <div class="list absolute flex items-end justify-end p-2 w-full h-full bg-black left-0 top-0 bg-opacity-0 opacity-0 transition cursor-move duration-300 hover:opacity-100 hover:bg-opacity-40">
+                            <div class="flex items-center">
+                                <a @click.prevent="onRemoveImage(i)" href="#" class="flex justify-center items-center bg-white h-8 w-8 rounded-sm hover:text-red-500">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div  slot="footer" class="relative">
+                        <div v-if="images.length < 5" class="group relative flex items-center justify-center w-40 h-40 rounded-sm border-2 border-dashed bg-gray-100">
+                            <div class="">
+                                <i class="icon-stack-plus text-gray-300 icon-2x"></i>
+                            </div>
+                            <div class="absolute flex items-end justify-end w-full h-full bg-gray-300 left-0 top-0 bg-opacity-0 opacity-0 transition duration-400 hover:opacity-100 hover:bg-opacity-30">
+                                <input @input="onChangeFileImage" class="h-full w-full border opacity-0 cursor-pointer" type="file" multiple accept=".png, .jpg">
+                            </div>
+                        </div>
+                    </div>
+                </draggable>
+            </div>
+        </div>
         <div v-show="alert" class="absolute right-5 px-3 py-2 rounded bg-gray-900 bottom-0 text-center">
             <div class="flex items-center space-x-3">
                 <i class="icon-warning text-red-500"></i>
@@ -94,15 +127,17 @@
 import Autocomplete from '../../components/Autocomplete.vue'
 import Autonumeric from '../../components/Autonumeric.vue'
 import DatePicker from 'v-calendar/src/components/DatePicker.vue'
+import draggable from 'vuedraggable'
 import axios from 'axios'
 export default {
-    components: {Autocomplete, Autonumeric, DatePicker},
+    components: {Autocomplete, Autonumeric, DatePicker, draggable},
     data () {
         return {
             isDisabled: false,
             supplier: '',
             sku: '',
             alert: false,
+            images: [],
             item: {
                 productId: '',
                 sku: '',
@@ -119,6 +154,7 @@ export default {
                 invoiceDate: '',
                 items: [],
                 status: '',
+                images: []
             },
             err: {
                 supplier: ''
@@ -144,12 +180,14 @@ export default {
             }
             if(this.form.supplierId) {
                 this.isDisabled = true
+                this.form.images = this.images
                 axios.post('/purchases', this.form)
                 .then(() => {
                     this.$router.push('/purchasing')
                 })
             }
         },
+        
         getProduct () {
             axios.get('/purchases/product', {
                 params: {
@@ -203,7 +241,30 @@ export default {
         onSelectSupplier (e) {
             this.form.supplierId = e._id
             this.err.supplier = ''
-        }
+        },
+        //  IMAGES FUNCTION
+        onChangeFileImage (e) {
+            let app = this
+            const file = e.currentTarget.files
+            if(file.length + this.images.length > 5) {
+                console.log('lebih dari tiga')
+            } 
+            if(file.length + this.images.length <= 5) {
+                for (let i = 0; i < file.length; i++) {
+                    const reader = new FileReader()
+                    if(this.images.length < 5) {
+                        reader.onload = () => {
+                            app.images.push(reader.result)
+                        }
+                        reader.readAsDataURL(file[i])
+                    }
+                }
+                e.target.value = ""
+            }         
+        },
+        onRemoveImage (i) {
+            this.images.splice(i,1)
+        },
     },
     watch: {
         sku (val) {
