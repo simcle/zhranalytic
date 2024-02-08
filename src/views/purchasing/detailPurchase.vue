@@ -193,7 +193,7 @@
                             <td class="px-3 py-1.5 border border-black text-center"></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border border-black text-right font-semibold px-3">Total</td>
+                            <td colspan="4" class="border border-black text-right font-semibold px-3">Total</td>
                             <td class="border border-black text-center">{{total}}</td>
                             <td class="border border-black text-center"></td>
                             <td class="border border-black text-center"></td>
