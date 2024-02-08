@@ -196,7 +196,6 @@
                             <td colspan="4" class="border border-black text-right font-semibold px-3">Total</td>
                             <td class="border border-black text-center">{{total}}</td>
                             <td class="border border-black text-center"></td>
-                            <td class="border border-black text-center"></td>
                         </tr>
                     </tbody>
                 </table>
