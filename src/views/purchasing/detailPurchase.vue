@@ -192,6 +192,12 @@
                             <td class="px-3 py-1.5 border border-black text-center">{{item.qty}}</td>
                             <td class="px-3 py-1.5 border border-black text-center"></td>
                         </tr>
+                        <tr>
+                            <td colspan="3" class="border border-black text-right font-semibold px-3">Total</td>
+                            <td class="border border-black text-center">{{total}}</td>
+                            <td class="border border-black text-center"></td>
+                            <td class="border border-black text-center"></td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="mt-5">
@@ -275,6 +281,13 @@ export default {
             }) 
             return item.reverse()
         },
+        total () {
+            let sum = 0
+            for(let i = 0; i < this.items.length; i++) {
+                sum += this.items[i].qty
+            }
+            return sum
+        }
     },
     methods: {
         onPrint () {
