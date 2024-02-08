@@ -27,7 +27,7 @@
                 <div>
                     <div class="flex items-center space-x-3 mb-5">
                         <button><i class="icon-star-empty3 icon-2x"></i></button>
-                        <div class="text-2xl">New</div>
+                        <div class="text-2xl">{{form.purchaseNo}}</div>
                     </div>
                     <div>
                         <span>SUPPLIER</span>
@@ -158,7 +158,20 @@
                         </table>
                     </div>
                     <div class="relative">
-                        <div class="absolute bottom-0 py-1.5 w-full">Tgl. Diterima :</div>
+                        <table class="w-full">
+                            <tr>
+                                <td class="py-1.5 font-semibold" style="width: 35%">NO PURCHASE</td>
+                                <td class="py-1.5 pl-5">: {{form.purchaseNo}} </td>
+                            </tr>
+                            <tr>
+                                <td class="py-1.5 font-semibold text-transparent">SUPPLIER</td>
+                                <td class="py-1.5 pl-5"> </td>
+                            </tr>
+                            <tr>
+                                <td class="py-1.5 font-semibold">Tgl. Diterima</td>
+                                <td class="py-1.5 pl-5">:</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <table class="w-full">
