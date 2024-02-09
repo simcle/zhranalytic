@@ -1,5 +1,5 @@
 <template>
-    <div class="m-5">
+    <div class="m-5 relative">
         <div class="flex items-center justify-between mb-5">
             <div>
                 <input v-model="search" type="text" class="form-control w-64" placeholder="sercah no or supplier name">
@@ -30,6 +30,10 @@
                 </tbody>
             </table>
         </div>
+        <div v-show="isLoading" class="h-9 mt-5 absolute w-full bottom-0 bg-gray-300  rounded text-center flex items-center justify-center">Mohon tunggu...</div>
+        <button v-show="buttonTop" @click="onButtonTotop" class="h-11 w-11 bg-blue-500 rounded-full fixed bottom-5 right-5 flex items-center justify-center text-blue-50">
+            <i class="icon-arrow-up8"></i>
+        </button>
     </div>
 </template>
 
@@ -40,25 +44,58 @@ export default {
     data () {
         return {
             search: '',
+            isLoading: false,
+            buttonTop: false,
             searchData: '',
-            purchases: []
+            purchases: [],
+            page: 1,
+            content: ''
         }
     },
     mounted () {
         this.searchData = debounce(() => {
             this.getData()
         }, 300)
+        this.content = document.getElementById('content')
+        document.getElementById('content').addEventListener('scroll', this.onScroll)
         this.getData()
     },
+    destroyed() {
+        document.getElementById('content').removeEventListener('scroll', this.onScroll)
+    },
     methods: {
-        getData () {
+        onScroll () {
+            const content = document.getElementById('content')
+            const {scrollTop, scrollHeight, clientHeight} = content
+            if(scrollTop + clientHeight == scrollHeight) {
+                this.getData(this.page + 1)
+                console.log('hallo')
+            }
+            if(scrollTop > 100) {
+                this.buttonTop = true
+            } else {
+                this.buttonTop = false
+            }
+            
+        },
+        onButtonTotop () {
+            document.getElementById('content').scrollTo({top: 0, behavior: 'smooth'})
+        },
+        getData (e) {
+            this.isLoading = true
             axios.get('/purchases', {
                 params: {
-                    search: this.search
+                    search: this.search,
+                    page: e
                 }
             })
             .then(res => {
-                this.purchases = res.data.data
+                this.isLoading = false
+                const data = res.data.data
+                for (let item of data) {
+                    this.purchases.push(item)
+                }
+                this.page = parseInt(res.data.pages.current_page)
             })
         },
         getDate (e) {
@@ -74,6 +111,8 @@ export default {
     },
     watch: {
         search () {
+            this.purchases = []
+            this.page = 1
             this.searchData()
         }
     }

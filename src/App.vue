@@ -68,7 +68,7 @@
 			</div>
 			<!-- CONTENT WRAPPER -->
 			<div class=" flex flex-col flex-1 relative min-w-0">
-				<div class="flex flex-col h-full relative overflow-y-auto mb-20">
+				<div id="content" class="flex flex-col h-full relative overflow-y-auto mb-20">
 					<transition name="fade" mode="out-in">
 						<router-view />
 					</transition>
