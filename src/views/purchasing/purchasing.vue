@@ -68,7 +68,7 @@ export default {
             const content = document.getElementById('content')
             const {scrollTop, scrollHeight, clientHeight} = content
             console.log(scrollTop, clientHeight, scrollHeight)
-            if(scrollTop + clientHeight == scrollHeight) {
+            if(scrollTop + clientHeight >= scrollHeight) {
                 this.getData(this.page + 1)
             }
             if(scrollTop > 100) {
