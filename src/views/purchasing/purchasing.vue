@@ -67,9 +67,9 @@ export default {
         onScroll () {
             const content = document.getElementById('content')
             const {scrollTop, scrollHeight, clientHeight} = content
+            console.log(scrollTop, clientHeight, scrollHeight)
             if(scrollTop + clientHeight == scrollHeight) {
                 this.getData(this.page + 1)
-                console.log('hallo')
             }
             if(scrollTop > 100) {
                 this.buttonTop = true
