@@ -4,8 +4,8 @@
 			<div class="bg-black h-14 border-b border-gray-800 flex items-center" style="width: 16.25rem">
 				<div class="font-semibold text-lg text-gray-500 ml-5">ZHR ANALITYCS</div>
 			</div>
-			<div class="w-full bg-gray-800 h-14 flex-1">
-
+			<div class="w-full bg-gray-800 h-14 flex-1 flex items-center justify-between text-gray-50">
+				
 			</div>
 		</div>
 		<div class="flex flex-grow relative overflow-hidden h-full">
