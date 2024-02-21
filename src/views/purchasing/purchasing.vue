@@ -1,8 +1,22 @@
 <template>
     <div class="m-5 relative">
         <div class="flex items-center justify-between mb-5">
-            <div>
-                <input v-model="search" type="text" class="form-control w-64" placeholder="sercah no or supplier name">
+            <div class="flex items-center space-x-2">
+                <div class="relative flex items-center">
+                    <input v-model="search" type="text" class="form-control w-64" placeholder="sercah no or supplier name">
+                    <button v-if="search" @click="search=''" class="absolute right-3"><i class="icon-cancel-circle2"></i></button>
+                </div>
+                <div class="inline-flex rounded-sm" role="group">
+                    <button @click="status='RFQ'" type="button" :class="[status == 'RFQ' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border rounded-s">
+                        RFQ
+                    </button>
+                    <button @click="status='RFQ SENT'" type="button" :class="[status == 'RFQ SENT' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border-t border-b border-r">
+                        RFQ SENT
+                    </button>
+                    <button @click="status='DONE'" type="button" :class="[status == 'DONE' ? 'bg-green-500 text-green-50': 'hover:text-green-500 bg-white']" class="px-4 py-2 text-sm font-medium text-gray-900 border-t border-b border-r">
+                        DONE
+                    </button>
+                </div>
             </div>
             <div>
                 <router-link to="/purchasing/new" class="bg-green-500 h-9 flex items-center rounded px-5 text-green-50 hover:bg-green-600">New RFQ</router-link>
@@ -48,6 +62,7 @@ export default {
             buttonTop: false,
             searchData: '',
             purchases: [],
+            status: 'RFQ',
             page: 1,
             content: ''
         }
@@ -86,6 +101,7 @@ export default {
             axios.get('/purchases', {
                 params: {
                     search: this.search,
+                    status: this.status,
                     page: e
                 }
             })
@@ -114,6 +130,11 @@ export default {
             this.purchases = []
             this.page = 1
             this.searchData()
+        },
+        status () {
+            this.purchases = []
+            this.page = 1
+            this.getData()
         }
     }
 }
