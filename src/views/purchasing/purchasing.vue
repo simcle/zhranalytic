@@ -39,7 +39,14 @@
                         <td class="p-3">{{prc.supplier}}</td>
                         <td class="p-3">{{getDate(prc.invoiceDate)}}</td>
                         <td class="p-3 text-right">{{Intl.NumberFormat().format(prc.total)}}</td>
-                        <td class="p-3">{{prc.status}}</td>
+                        <td class="p-3">
+                            <div class="flex items-center justify-between">
+                                <div>{{prc.status}}</div>
+                                <div v-if="status == 'RFQ'">
+                                    <button @click.stop="onDelete(prc)" class="bg-red-500 px-3 py-1 rounded-full text-red-50">Hapus</button>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -48,23 +55,37 @@
         <button v-show="buttonTop" @click="onButtonTotop" class="h-11 w-11 bg-blue-500 rounded-full fixed bottom-5 right-5 flex items-center justify-center text-blue-50">
             <i class="icon-arrow-up8"></i>
         </button>
+        <modal :show="modalDelete">
+            <div class=" w-2/6 bg-white border rounded p-5">
+                <div class="text-center text-xl font-bold">HAPUS PURCHASING</div>
+                <div class="text-center mt-10">
+                    <button @click="modalDelete = false" class="border rounded px-5 h-9 mr-2">Batal</button>
+                    <button @click="deletePurchase" class="border bg-red-500 text-red-50 rounded px-5 h-9" :disabled="isDisabled">Hapus</button>
+                </div>
+            </div>
+        </modal>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
 import debounce from 'lodash.debounce'
+import modal from '../../components/Modal.vue'
 export default {
+    components: {modal},
     data () {
         return {
             search: '',
             isLoading: false,
+            isDisabled: false,
             buttonTop: false,
             searchData: '',
             purchases: [],
             status: 'RFQ',
             page: 1,
-            content: ''
+            content: '',
+            modalDelete: false,
+            deleteId: ''
         }
     },
     mounted () {
@@ -123,6 +144,21 @@ export default {
         },
         onDetail (e) {
             this.$router.push('/purchasing/detail/'+e)
+        },
+        onDelete (e) {
+            this.deleteId = e._id
+            this.modalDelete = true
+        },
+        deletePurchase () {
+            this.isDisabled = true
+            axios.delete('/purchases/delete/'+this.deleteId)
+            .then(() => {
+                this.modalDelete = false
+                this.deleteId = ''
+                this.getData()
+                this.isDisabled = false
+                this.purchases = []
+            })
         }
     },
     watch: {
