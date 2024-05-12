@@ -18,7 +18,8 @@
                     </button>
                 </div>
             </div>
-            <div>
+            <div class="flex items-center">
+                <button @click="onDwonload" class="px-5">DOWNLOAD</button>
                 <router-link to="/purchasing/new" class="bg-green-500 h-9 flex items-center rounded px-5 text-green-50 hover:bg-green-600">New RFQ</router-link>
             </div>
         </div>
@@ -100,6 +101,19 @@ export default {
         document.getElementById('content').removeEventListener('scroll', this.onScroll)
     },
     methods: {
+        onDwonload () {
+            axios.get('/purchases/download', {
+                responseType: 'blob'
+            })
+            .then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute('download', 'statistics.xlsx'); //or any other extension
+				document.body.appendChild(link);
+				link.click();
+            })
+        },
         onScroll () {
             const content = document.getElementById('content')
             const {scrollTop, scrollHeight, clientHeight} = content

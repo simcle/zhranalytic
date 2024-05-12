@@ -1,6 +1,3 @@
 <template>
-	<div>
-		<!-- component -->
-		
-	</div>
+	<div></div>
 </template>
